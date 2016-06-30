@@ -1,0 +1,61 @@
+body {
+  background-color: #C4DFE6;
+}
+
+h1 {
+  color: #07575B;
+  font-family:monospace;
+  padding-top: 1%;
+}
+
+h2 {
+  color: #07575B;
+  font-family:monospace;
+  padding-top: 5%;
+}
+
+#text {
+  color:#07575B;
+  font-family: monospace;
+  font-size: 16;
+}
+
+#footerText {
+  color:#07575B;
+  font-family: monospace;
+  font-size: 14;
+  text-align:center;
+}
+
+a{
+    color:#07575B;
+    padding: 8px;
+    text-decoration: none;
+}
+
+a:hover {
+  background-color: #66A5AD;
+  border-radius: 25px;
+  color: #fff;
+  transition-duration: 0.2s;
+}
+
+#headerText {
+  color:#07575B;
+  font-family: monospace;
+  font-size: 2vh;/* 2 % of current Viewport Height, A good amount to scale for all devices */
+  padding-bottom: 10;
+  margin-left: 4.4%;
+}
+
+
+
+section{
+  padding: 3.9%;
+  background-color: white;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+article{
+  padding: 4.6%;
+}
