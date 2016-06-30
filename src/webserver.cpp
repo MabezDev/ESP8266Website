@@ -13,9 +13,11 @@ int currentStatus = 0;
 #define INDEX "/index.php"
 #define LIT_REVIEW "/literature-review.php"
 #define WORKLOG "/work-log.php"
+#define VIDEO "/video.php"
 
 #define CSS "/main.css"
 #define HEADER "/header.html"
+#define FOOTER "/footer.html"
 
 
 ESP8266WebServer server(80);
@@ -53,10 +55,10 @@ String getStringFromFile(String path){
 
     bool done = false;
     String completeFile = "";
-    char buffer[600];
+    char buffer[1000];
     int byteCount = 0;
     while(!done){
-      htmlPage.readBytes(buffer, 500);
+      htmlPage.readBytes(buffer, 1000-3); //for some reason 3 random bytes at the end of each read
       int charsLeft = htmlPage.size() - byteCount;
       if(charsLeft < 0){
         // we reached EOF
@@ -64,7 +66,7 @@ String getStringFromFile(String path){
       }
       completeFile += String(buffer);
       memset(buffer,0,600);
-      byteCount += 500;
+      byteCount += 1000;
       delay(1);//service the wifi bg processes so we dont crash reading in big files
     }
 
@@ -87,25 +89,29 @@ String getStyle(String path){
 }
 
 void handle_root(){
-  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(INDEX);
+  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(INDEX) + getStringFromFile(FOOTER);
   server.send(200, "text/html", page);
   delay(100);
 }
 
 void handle_lit(){
-  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(LIT_REVIEW);
+  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(LIT_REVIEW) + getStringFromFile(FOOTER);
   server.send(200, "text/html", page);
   delay(100);
 }
 
 void handle_worklog(){
-  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(WORKLOG);
+  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(WORKLOG) + getStringFromFile(FOOTER);
   server.send(200, "text/html", page);
   delay(100);
 }
 
-
-
+void handle_video(){
+  //video is hosted on another file server instead of this server due to a ram constraint, works exactly the same though
+  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(VIDEO) + getStringFromFile(FOOTER);
+  server.send(200, "text/html", page);
+  delay(100);
+}
 
 void setup(){
   Serial.begin(115200);
@@ -113,6 +119,15 @@ void setup(){
   digitalWrite(2, HIGH);
   SPIFFS.begin();
   WiFi.begin(ssid, password);
+  delay(1000);
+  Serial.println();
+  Serial.print("Free space on Flash: ");
+  Serial.println(ESP.getFreeSketchSpace());
+
+  Serial.print("Max Flash Size: ");
+  Serial.println(ESP.getFlashChipRealSize());
+
+
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -131,6 +146,8 @@ void setup(){
   server.on(LIT_REVIEW,handle_lit);
 
   server.on(WORKLOG,handle_worklog);
+
+  server.on(VIDEO,handle_video);
 
 
 
