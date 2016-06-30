@@ -4,11 +4,10 @@
 <html>
 
 <head>
-  
+
 </head>
 
 <body>
-  <?php include "header.html";?>
   <article id="text">
       <section>
       <h3>Abstract</h3>
@@ -29,15 +28,7 @@
       </p>
       <h3>Conclusion</h3>
       <p>Software implementation and development in the commercial and business world is paramount to the sustainability of  the ICT sector. Techniques discussed in this literature review reveal that although there are a number of viable sustainable solutions, many of the sustainable methods of computing cannot be applied in all circumstances. Providing a sustainable computing environment is entirely possible with current technologies, but are imperfect. Reaching the end goal of a fully sustainable computing environment as soon as possible would be ideal. This however would take years of research, therefore current systems should be overhauled to limit waste energy. This has the added benefits of saving the company/user money in the long run and protecting the environment for our foreseeable future.</p>
-
-
       </section>
     </article>
-
-  <?php include "footer.html";?>
 </body>
-
-
-
-
 </html>

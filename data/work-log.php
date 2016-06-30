@@ -7,9 +7,7 @@
 </head>
 
 <body>
-  <?php include "header.html";?>
-
-  <?php include "footer.html";?>
+  <p>Work log goes here.</p>
 </body>
 
 

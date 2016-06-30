@@ -82,22 +82,25 @@ String getStyle(String path){
   String style = "<style>";
   style += getStringFromFile(path);
   style += "</style>";
+  Serial.println(style);//if i dont print this i don't get rounded edges on my links lolwut
   return style;
 }
 
 void handle_root(){
-  Serial.println(getStyle(CSS));
-  server.send(200, "text/html", getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(INDEX));
+  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(INDEX);
+  server.send(200, "text/html", page);
   delay(100);
 }
 
 void handle_lit(){
-  server.send(200, "text/html", getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(LIT_REVIEW));
+  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(LIT_REVIEW);
+  server.send(200, "text/html", page);
   delay(100);
 }
 
 void handle_worklog(){
-  server.send(200, "text/html", getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(WORKLOG));
+  String page = getStyle(CSS) + getStringFromFile(HEADER) + getStringFromFile(WORKLOG);
+  server.send(200, "text/html", page);
   delay(100);
 }
 
